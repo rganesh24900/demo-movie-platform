@@ -1,27 +1,81 @@
-import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { actionCreators } from '../state';
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+
+  const [searchText, setSearchText] = useState('');
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(actionCreators.fetchPopularMovies());
+  }, []);
+
   return (
-    <header
-      className="border-b-1 relative z-20 flex h-full w-full flex-col-reverse items-center justify-between border bg-white"
+    <nav
+      className="fixed flex w-full items-center justify-end gap-4  px-9 py-3 lg:justify-between lg:gap-8 bg-gray-700"
+      aria-label="Global"
     >
-      <nav
-        className="flex w-full items-center justify-end gap-3  px-5 py-3 lg:justify-between lg:gap-8 "
-        aria-label="Global"
+      <Link
+        onClick={() => {
+          dispatch(actionCreators.fetchPopularMovies());
+        }}
+        to="/"
       >
-        <Link to="/"><p className="text-xs font-medium">MovieDb</p></Link>
-        <div className="flex flex-row gap-2">
-          <NavLink to="/">Popular Movies</NavLink>
-          <NavLink to="/">
-            Upcoming Movies
-            </NavLink>
-            <NavLink to="/">
-            Top Rated Movies
-            </NavLink>
+        <p className="text-xs font-medium">MovieDb</p>
+      </Link>
+      <div className="flex flex-row gap-4 items-center">
+        <NavLink
+          className="text-sm text-gray-500"
+          onClick={() => {
+            dispatch(actionCreators.fetchPopularMovies());
+          }}
+          to="/"
+        >
+          Popular Movies
+        </NavLink>
+        <NavLink
+          onClick={() => {
+            dispatch(actionCreators.fetchUpcomingMovies());
+          }}
+          className="text-sm text-gray-500"
+          to="/"
+        >
+          Upcoming Movies
+        </NavLink>
+        <NavLink
+          onClick={() => {
+            dispatch(actionCreators.fetchTopMovies());
+          }}
+          className="text-sm text-gray-500"
+          to="/"
+        >
+          Top Rated Movies
+        </NavLink>
+        <div className="flex flex-row gap-4">
+          <input
+            type="text"
+            className="bg-white rounded p-2"
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+            placeholder="Movie Name"
+          />
+          <button
+            onClick={() => {
+              dispatch(actionCreators.searchMovies(searchText));
+              navigate('/');
+            }}
+            className="cursor-pointer bg-gray-200 text-gray-500 p-2 rounded whitespace-nowrap"
+          >
+            Search
+          </button>
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
   );
 };
 
