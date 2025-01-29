@@ -4,8 +4,7 @@ import { useSelector } from 'react-redux';
 import MovieItem from './components/MovieItem';
 
 const Movies = () => {
-  const movies = useSelector((state) => state.movies?.movies);
-  const isLoading = useSelector((state) => state.movies?.isLoading);
+  const {movies,isLoading} = useSelector((state) => state.movies);
   return (
     <MovieContainer>
       {isLoading?<h1 className='text-white'>Loading please wait ...</h1>:
