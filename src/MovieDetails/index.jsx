@@ -14,8 +14,8 @@ const MovieDetails = () => {
   );
 
   const dispatch = useDispatch();
-  const imagePath = `https://image.tmdb.org/t/p/w500/${movieDetails?.poster_path}`;
-  const backdropPath = `https://image.tmdb.org/t/p/w500/${movieDetails?.poster_path}`;
+  // const imagePath = `https://image.tmdb.org/t/p/w500/${movieDetails?.poster_path}`;
+  // const backdropPath = `https://image.tmdb.org/t/p/w500/${movieDetails?.poster_path}`;
 
   const MemoizedCast = React.memo(Cast);
 
@@ -31,7 +31,7 @@ const MovieDetails = () => {
       <MovieDetailsContainer>
         {isLoading?<h1 className='text-white'>Loading please wait...</h1>:<>
           <div className="w-[70%]">
-            <div className={'flex flex-row gap-2 bg-[url(' + imagePath + ')]'}>
+            <div>
               <img
                 className="w-20"
                 src={updateImage(movieDetails?.poster_path)}
@@ -64,12 +64,12 @@ const MovieDetails = () => {
             </div>
           </div>
           <div className="flex-grow">
-            <img src={updateImage(backdropPath)} alt="backDropImage" />
+            <img src={updateImage(movieDetails?.backdrop_path)} alt="backDropImage" />
           </div>
         </>}
       </MovieDetailsContainer>
       <h1 className="text-white">Cast</h1>
-      {castLoading?<h1 className='text-white'>Loading please wait...</h1>:<div className="flex flex-row gap-2">
+      {castLoading?<h1 className='text-white'>Loading please wait...</h1>:<div className="flex flex-row gap-2 flex-wrap">
         {casts.slice(10)?.map((cast) => {
           return <MemoizedCast key={movieId} cast={cast} />;
         })}

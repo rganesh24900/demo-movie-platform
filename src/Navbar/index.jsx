@@ -33,7 +33,7 @@ const Navbar = () => {
           onClick={() => {
             dispatch(actionCreators.fetchPopularMovies());
           }}
-          to="/"
+          to="/?popularMovies"
         >
           Popular Movies
         </NavLink>
@@ -42,7 +42,7 @@ const Navbar = () => {
             dispatch(actionCreators.fetchUpcomingMovies());
           }}
           className="text-sm text-gray-500"
-          to="/"
+          to="/?upcomingMovies"
         >
           Upcoming Movies
         </NavLink>
@@ -51,7 +51,7 @@ const Navbar = () => {
             dispatch(actionCreators.fetchTopMovies());
           }}
           className="text-sm text-gray-500"
-          to="/"
+          to="/?topRatedMovies"
         >
           Top Rated Movies
         </NavLink>
