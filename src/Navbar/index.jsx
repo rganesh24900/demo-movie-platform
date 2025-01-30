@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { actionCreators } from '../state';
@@ -66,6 +66,7 @@ const Navbar = () => {
           />
           <button
             onClick={() => {
+              if(!searchText) return;
               dispatch(actionCreators.searchMovies(searchText));
               navigate('/');
             }}
